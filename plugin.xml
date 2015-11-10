@@ -13,8 +13,11 @@
         <engine name="cordova" version=">=3.0.0" />
     </engines>
 
-    <platform name="ios">
+    <js-module src="www/BackgroundFetch.js" name="BackgroundFetch">
+        <clobbers target="window.BackgroundFetch" />
+    </js-module>
 
+    <platform name="ios">
         <!-- required background modes:  App registers for location updates -->
         <config-file target="*-Info.plist" parent="UIBackgroundModes">
             <array>
@@ -31,10 +34,22 @@
 
         <source-file src="src/ios/CDVBackgroundFetch.m" />
         <header-file src="src/ios/CDVBackgroundFetch.h" />
+     </platform>
 
-        <js-module src="www/BackgroundFetch.js" name="BackgroundFetch">
-            <clobbers target="window.BackgroundFetch" />
-        </js-module>
-     </platform>          
-
+     <platform name="android">
+         <config-file target="res/xml/config.xml" parent="/*">
+             <feature name="BackgroundFetch">
+                 <param name="android-package" value="org.transistorsoft.cordova.plugin.background.fetch.BackgroundFetch" />
+             </feature>
+         </config-file>
+         <config-file target="AndroidManifest.xml" parent="/manifest/application">
+             <receiver android:name="org.transistorsoft.cordova.plugin.background.fetch.BackgroundAlarmReceiver">
+                 <intent-filter>
+                     <action android:name="ED_RUN_BACKGROUND_FETCH" />
+                 </intent-filter>
+             </receiver>
+         </config-file>
+         <source-file src="src/android/BackgroundFetch.java" target-dir="src/org/transistorsoft/cordova/plugin/background/fetch/" />
+         <source-file src="src/android/BackgroundAlarmReceiver.java" target-dir="src/org/transistorsoft/cordova/plugin/background/fetch/" />
+     </platform>
 </plugin>
