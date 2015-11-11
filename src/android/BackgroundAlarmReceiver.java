@@ -10,11 +10,11 @@ import org.apache.cordova.PluginResult;
 public class BackgroundAlarmReceiver extends BroadcastReceiver {
     private static CallbackContext callbackContext;
 
-    static void setCallbackContext(CallbackContext cbContext) {
+    public static void setCallbackContext(CallbackContext cbContext) {
         callbackContext = cbContext;
     }
 
-    public void executeCallback() {
+    private void executeCallback() {
         PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
         pluginResult.setKeepCallback(true);
         callbackContext.sendPluginResult(pluginResult);
