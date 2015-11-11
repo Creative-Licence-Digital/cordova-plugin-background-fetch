@@ -22,6 +22,8 @@ public class BackgroundAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (callbackContext == null) return;
+
         executeCallback();
     }
 }
