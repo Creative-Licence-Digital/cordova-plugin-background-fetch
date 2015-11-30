@@ -15,7 +15,7 @@ import org.json.JSONException;
 
 public class BackgroundFetch extends CordovaPlugin {
     public static final int PERIOD = 1800000; // Every 30 minutes
-    public static final String ACTION_RUN_BACKGROUND_FETCH = "ED_RUN_BACKGROUND_FETCH";
+    public static final String ACTION_RUN_BACKGROUND_FETCH = "CDV_PLUGIN_BACKGRUOND_FETCH_RUN";
 
     @Override
     public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {

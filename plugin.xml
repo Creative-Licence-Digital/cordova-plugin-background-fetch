@@ -45,7 +45,7 @@
          <config-file target="AndroidManifest.xml" parent="/manifest/application">
              <receiver android:name="org.transistorsoft.cordova.plugin.background.fetch.BackgroundAlarmReceiver">
                  <intent-filter>
-                     <action android:name="ED_RUN_BACKGROUND_FETCH" />
+                     <action android:name="CDV_PLUGIN_BACKGRUOND_FETCH_RUN" />
                  </intent-filter>
              </receiver>
          </config-file>
