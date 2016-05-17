@@ -5,7 +5,6 @@
 //  Largely based upon http://www.mindsizzlers.com/2011/07/ios-background-location/
 //
 #import "CDVBackgroundFetch.h"
-#import <Cordova/CDVJSON.h>
 #import "AppDelegate.h"
 
 @implementation AppDelegate(AppDelegate)
@@ -43,7 +42,7 @@
 }
 
 - (void) configure:(CDVInvokedUrlCommand*)command
-{    
+{
     NSLog(@"- CDVBackgroundFetch configure");
     UIApplication *app = [UIApplication sharedApplication];
 
@@ -51,19 +50,19 @@
         NSLog(@" background fetch unsupported");
         return;
     }
-    
+
     NSDictionary *config = [command.arguments objectAtIndex:0];
     if (config[@"stopOnTerminate"]) {
         stopOnTerminate = [[config objectForKey:@"stopOnTerminate"] boolValue];
     }
 
     self.fetchCallbackId = command.callbackId;
-    
+
     [app setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     [app.delegate self];
-    
+
     UIApplicationState state = [app applicationState];
-    
+
     // Handle case where app was launched due to background-fetch event
     if (state == UIApplicationStateBackground && _completionHandler && _notification) {
         [self onFetch:_notification];
@@ -78,7 +77,7 @@
     }
     _notification = notification;
     _completionHandler = [notification.object copy];
-    
+
     // Inform javascript a background-fetch event has occurred.
     [self.commandDelegate runInBackground:^{
         CDVPluginResult* result = nil;
@@ -114,9 +113,9 @@
 // If you don't stopMonitorying when application terminates, the app will be awoken still when a
 // new location arrives, essentially monitoring the user's location even when they've killed the app.
 // Might be desirable in certain apps.
-- (void)applicationWillTerminate:(UIApplication *)application 
+- (void)applicationWillTerminate:(UIApplication *)application
 {
-    
+
 }
 
 - (void)dealloc
